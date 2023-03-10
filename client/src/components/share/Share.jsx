@@ -1,25 +1,37 @@
 import "./share.css";
 import {PermMedia, Label,Room, EmojiEmotions, Cancel} from "@mui/icons-material"
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState,useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
 export default function Share() {
-  const { user } = useContext(AuthContext);
+  const { user : currentUser } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
   const [file, setFile] = useState(null);
+  const [user, setUser] = useState({});
+  console.log( "this is user")
+  console.log(user)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await axios.get(`/users?userId=${currentUser._id}`);
+      setUser(res.data);
+    };
+    fetchUser();
+  }, [currentUser._id]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     const newPost = {
-      userId: user._id,
+      userId: currentUser._id,
       desc: desc.current.value,
     };
     if (file) {
       const data = new FormData();
       const fileName = Date.now() + file.name;
       data.append("name", fileName);
+      data.append("folder", 'post');
       data.append("file", file);
       newPost.img = fileName;
       console.log(newPost);
@@ -28,8 +40,11 @@ export default function Share() {
       } catch (err) {}
     }
     try {
-      await axios.post("/posts", newPost);
-      window.location.reload();
+      if(newPost.desc || newPost.img){
+        await axios.post("/posts", newPost);
+        window.location.reload();
+
+      }
     } catch (err) {}
   };
   return (
@@ -40,7 +55,7 @@ export default function Share() {
             className="shareProfileImg"
             src={
               user.profilePicture
-                ? PF + user.profilePicture
+                ? PF + "person/" + user.profilePicture
                 : PF + "person/noAvatar.png"
             }
             alt=""

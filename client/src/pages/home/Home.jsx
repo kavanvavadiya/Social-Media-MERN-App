@@ -4,6 +4,7 @@ import Feed from "../../components/feed/Feed";
 import Rightbar from "../../components/rightbar/Rightbar";
 import "./home.css"
 export default function Home() {
+  console.log(JSON.parse(localStorage.getItem("user")))
   return (
     <>
       <Topbar />

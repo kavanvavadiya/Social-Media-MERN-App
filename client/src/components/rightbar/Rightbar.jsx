@@ -74,6 +74,15 @@ export default function Rightbar({ user }) {
             {followed ? "Unfollow" : "Follow"}
           </button>
         )}
+       {user.username === currentUser.username && (
+          <button className="rightbarFollowButton" onClick={()=>{
+            localStorage.setItem("user",null)
+            window.location.reload();
+          }
+            }>
+           Logout
+          </button>
+        )}
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
