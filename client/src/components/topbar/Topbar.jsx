@@ -63,10 +63,12 @@ export default function Topbar() {
             <Person />
             <span className="topbarIconBadge">1</span>
           </div>
-          <div className="topbarIconItem">
-            <Chat />
+          <Link to={`/messenger`} className="topbarIconItem" style={{textDecoration:"none"}}>
+          {/* <div className="topbarIconItem"> */}
+            <Chat htmlColor="white" />
             <span className="topbarIconBadge">2</span>
-          </div>
+          {/* </div> */}
+          </Link>
           <div className="topbarIconItem">
             <Notifications />
             <span className="topbarIconBadge">1</span>

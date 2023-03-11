@@ -14,6 +14,8 @@ const path = require("path");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const conversationRoute = require("./routes/conversations");
+const messageRoute = require("./routes/messages");
 
 mongoose.connect(url,(err)=>{
     if(err) console.error(`unable to connect beacaus of this error: ${err}`);
@@ -50,6 +52,8 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
   app.use("/api/auth", authRoute);
   app.use("/api/users", userRoute);
   app.use("/api/posts", postRoute);
+  app.use("/api/conversations", conversationRoute);
+  app.use("/api/messages", messageRoute);
   
 app.listen("8800",()=>{
     console.log("Backend server is running in port 8800")
