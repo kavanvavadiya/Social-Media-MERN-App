@@ -10,6 +10,7 @@ import {
   Event,
   School,
 } from '@mui/icons-material';
+import { Link } from "react-router-dom";
 import { Users } from "../../dummyData";
 import CloseFriend from "../closeFriend/CloseFriend";
 
@@ -19,12 +20,16 @@ export default function Sidebar() {
       <div className="sidebarWrapper">
         <ul className="sidebarList">
           <li className="sidebarListItem">
-            <RssFeed className="sidebarIcon" />
-            <span className="sidebarListItemText">Feed</span>
+          <Link to={`/`} style={{textDecoration:"none"}}>
+              <RssFeed className="sidebarIcon" htmlColor="black"/>
+              <span className="sidebarListItemText">Feed</span>
+          </Link>
           </li>
           <li className="sidebarListItem">
-            <Chat className="sidebarIcon" />
-            <span className="sidebarListItemText">Chats</span>
+            <Link to={`/messenger`} style={{textDecoration:"none"}}>
+             <Chat className="sidebarIcon" htmlColor="black"/>
+             <span className="sidebarListItemText">Chats</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <PlayCircleFilledOutlined className="sidebarIcon" />

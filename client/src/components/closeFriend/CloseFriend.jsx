@@ -22,14 +22,30 @@ export default function CloseFriend({user,userId}) {
     <>
     {user ? 
     <li className="sidebarFriend">
-      <Link to={`/profile/${user.username}`} style={{textDecoration :"none"}}>
-      <img className="sidebarFriendImg" src={PF + "person/" + user.profilePicture} alt="" />
+      <Link to={`/profile/${user.username}`} style={{textDecoration :"none", display :"flex", alignItems: "center"}} >
+      <img
+           className="sidebarFriendImg"
+           src={
+             user.profilePicture
+             ? PF + user.profilePicture
+             : PF + "person/noAvatar.png"
+           }
+           alt=""
+           />
       <span className="sidebarFriendName">{user.username}</span>
   </Link>
     </li> :
     <li className="sidebarFriend">
-      <Link to={`/profile/${friend.username}`} style={{textDecoration :"none"}}>
-      <img className="sidebarFriendImg" src={PF + "person/" + friend.profilePicture} alt="" />
+      <Link to={`/profile/${friend.username}`}  style={{textDecoration :"none", display :"flex", alignItems: "center"}}>
+      <img
+           className="sidebarFriendImg"
+           src={
+            friend.profilePicture
+             ? PF + friend.profilePicture
+             : PF + "person/noAvatar.png"
+           }
+           alt=""
+           />
       <span className="sidebarFriendName">{friend.username}</span>
       </Link>
     </li>

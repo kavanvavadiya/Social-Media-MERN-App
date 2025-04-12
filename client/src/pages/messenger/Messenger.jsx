@@ -20,8 +20,9 @@ export default function Messenger() {
   const scrollRef = useRef();
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://localhost:8800");
     socket.current.on("getMessage", (data) => {
+      console.log("aayaaaaaaaaaaaaaa")
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -50,6 +51,7 @@ export default function Messenger() {
       try {
         const res = await axios.get("/conversations/" + user._id);
         setConversations(res.data);
+        console.log(res.data)
       } catch (err) {
         console.log(err);
       }

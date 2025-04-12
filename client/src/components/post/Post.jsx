@@ -1,5 +1,5 @@
 import "./post.css";
-import { Delete, Edit,MoreVert } from "@mui/icons-material";
+import { Delete, Edit,Favorite,FavoriteBorder,MoreVert } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -57,20 +57,21 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-          <Link to={`/profile/${user.username}`}>
+          <Link to={`/profile/${user.username}`} style={{textDecoration :"none", display :"flex", alignItems: "center"}}>
               <img
                 className="postProfileImg"
                 src={
                   user.profilePicture
-                    ? PF + "person/" + user.profilePicture
+                    ? PF + user.profilePicture
                     : PF + "person/noAvatar.png"
                 }
                 alt=""
               />
-            </Link>
             <span className="postUsername">
               {user.username}
             </span>
+            </Link>
+
             <span className="postDate">{moment(new Date(post.createdAt)).fromNow()}</span>
           </div>
           {post.userId === currentUser._id && (
@@ -108,13 +109,12 @@ export default function Post({ post }) {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <img className="likeIcon" src={PF + "like.png"} onClick={likeHandler} alt="" />
-            <img className="likeIcon" src={PF + "heart.png"} onClick={likeHandler} alt="" />
+           {isLiked ? (<Favorite onClick={likeHandler} htmlColor="red"/>):(<FavoriteBorder onClick={likeHandler} />)} 
             <span className="postLikeCounter">{like} people like it</span>
           </div>
-          <div className="postBottomRight">
+          {/* <div className="postBottomRight">
             <span className="postCommentText">{post.comment} comments</span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

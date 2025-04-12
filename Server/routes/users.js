@@ -98,6 +98,20 @@ router.put("/:id/follow", async (req, res) => {
       res.status(403).json("you cant follow yourself");
     }
   });
+
+  router.get("/users/search", async (req, res) => {
+    const query = req.query.query;
+    console.log(query)
+    try {
+      const users = await User.find({ username: { $regex: query, $options: "i" } }).limit(5);
+      
+      res.status(200).json(users);
+    } catch (err) {
+      console.log(err)
+      res.status(500).json(err);
+    }
+  });
+  
   
   //unfollow a user
   router.put("/:id/unfollow", async (req, res) => {

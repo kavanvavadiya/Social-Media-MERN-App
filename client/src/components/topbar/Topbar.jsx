@@ -10,9 +10,6 @@ export default function Topbar() {
   const { user: currentUser } = useContext(AuthContext);
 
   const [user, setUser] = useState({});
-  console.log( "this is user")
-  console.log(user)
-
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(`/users?userId=${currentUser._id}`);
@@ -54,10 +51,6 @@ export default function Topbar() {
         </div>
       </div>
       <div className="topbarRight">
-        <div className="topbarLinks">
-          <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
-        </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
             <Person />
@@ -86,7 +79,7 @@ export default function Topbar() {
             <img
             src={
               user.profilePicture
-                ? PF + "person/" +user.profilePicture
+                ? PF  + user.profilePicture
                 : PF + "person/noAvatar.png"
             }
             alt=""
@@ -132,12 +125,22 @@ export default function Topbar() {
         <Link to={`/profile/${user.username}`} style={{textDecoration:"none"}}>
 
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <img
+            src={
+              user.profilePicture
+                ? PF  + user.profilePicture
+                : PF + "person/noAvatar.png"
+            }
+            alt=""
+            className="topbarImg"
+          />
+           Profile
         </MenuItem>
         </Link>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
+        {/* <MenuItem onClick={handleClose}>
+          <Avatar />           
+           My account
+        </MenuItem> */}
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>

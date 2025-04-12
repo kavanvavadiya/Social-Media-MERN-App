@@ -20,6 +20,14 @@ const UserSchema = new mongoose.Schema(
       required: true,
       min: 6,
     },
+    firstname: {
+      type: String,
+      max:20,
+    },
+    lastname: {
+      type: String,
+      max:20,
+    },
     profilePicture: {
       type: String,
       default: "",

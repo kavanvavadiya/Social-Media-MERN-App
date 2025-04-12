@@ -12,9 +12,15 @@ export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(
-    currentUser.followings.includes(user?._id)
-  );
+  // const [followed, setFollowed] = useState(
+  //   currentUser.followings.includes(user?._id)
+  // );
+  const [followed, setFollowed] = useState(false);
+
+useEffect(() => {
+  setFollowed(currentUser.followings.includes(user?._id));
+}, [user, currentUser.followings]); // Re-check follow status when profile changes
+
 
   useEffect(() => {
     const getFriends = async () => {
@@ -102,7 +108,7 @@ export default function Rightbar({ user }) {
                 <img
                   src={
                     friend.profilePicture
-                      ? PF + "person/" + friend.profilePicture
+                      ? PF + friend.profilePicture
                       : PF + "person/noAvatar.png"
                   }
                   alt=""

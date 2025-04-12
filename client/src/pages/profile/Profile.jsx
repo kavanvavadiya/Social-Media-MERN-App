@@ -43,7 +43,7 @@ export default function Profile() {
       data.append("name", fileName);
       data.append("folder", 'person');
       data.append("file", profileFile);
-      userUpdate.profilePicture = fileName;
+      userUpdate.profilePicture = "/person/"+ fileName;
       console.log(userUpdate);
       try {
         await axios.post("/upload", data);
@@ -119,7 +119,7 @@ export default function Profile() {
            className="profileUserImg"
            src={
              user.profilePicture
-             ? PF + "person/"+ user.profilePicture
+             ? PF + user.profilePicture
              : PF + "person/noAvatar.png"
            }
            alt=""
@@ -142,7 +142,10 @@ export default function Profile() {
            {profileFile || coverFile ? (<div className="submitPics"><Button type="submit"startIcon={<Publish/>} variant="outlined">Update Pics</Button></div>) : ""}
             </form>
             <div className="profileInfo">
-                <h4 className="profileInfoName">{user.username}</h4>
+                <h4 className="profileInfoName">
+                {user.firstname ?
+                  (user.lastname ? (user.firstname + " " + user.lastname):(user.firstname)):(user.username)}
+                  </h4>
                 <span className="profileInfoDesc">{user.desc}</span>
                 {user.username === currentUser.username && (
               !isEdit?<Button variant="outlined" onClick={()=> setIsEdit(!isEdit)}><Edit /> Edit Profile</Button> : <Button variant="outlined" onClick={()=> setIsEdit(!isEdit)}><ArrowBack /> Back</Button> )}
